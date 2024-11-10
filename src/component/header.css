@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+  .show-when-mobile {
+    display: flex;
+  }
+}
+
+.toggle-dark-mode {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+
+.dark {
+  background-color: #1b1b1b;
+  color: white;
+}
+
+.light {
+  background-color:#326673;
+  color: white;
+}
