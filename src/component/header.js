@@ -12,11 +12,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firbasee/config";
 import { signOut } from "firebase/auth";
 
+import { useNavigate } from "react-router-dom";
+
+
 const Header = () => {
   // use Context
   const { name, theme, changeName, changeThemes } = useContext(ThemeProvider);
   // sign out
   const [user, loading, error] = useAuthState(auth);
+
+  const navigate = useNavigate();
 
   return (
     <div className={`myHeader ${theme}`}>
@@ -49,6 +54,7 @@ const Header = () => {
                   signOut(auth)
                     .then(() => {
                       // Sign-out successful.
+                      navigate("/")
                     })
                     .catch((error) => {
                       // An error happened.
@@ -61,9 +67,12 @@ const Header = () => {
           )}
 
           <li className="main-list">
-            <NavLink className="main-link" to="/html">
-              HTML
-            </NavLink>
+            {user && (
+              <NavLink className="main-link" to="/html">
+                HTML
+              </NavLink>
+            )}
+
             {/* <ul className="sub-ul">
               <li>
                 <a href="">Full Course</a>
@@ -77,9 +86,11 @@ const Header = () => {
             </ul> */}
           </li>
           <li className="main-list">
-            <NavLink className="main-link" to="/css">
-              CSS
-            </NavLink>
+            {user && (
+              <NavLink className="main-link" to="/css">
+                CSS
+              </NavLink>
+            )}
             {/* <ul className="sub-ul">
               <li>
                 <a href="">Full Course</a>
@@ -104,9 +115,11 @@ const Header = () => {
             </ul> */}
           </li>
           <li className="main-list">
-            <NavLink className="main-link" to="/javascript">
-              JavaScript
-            </NavLink>
+            {user && (
+              <NavLink className="main-link" to="/javascript">
+                JavaScript
+              </NavLink>
+            )}
             {/* <ul className="sub-ul sub-of-js">
               <li>
                 <a href="">coming soon🔥</a>

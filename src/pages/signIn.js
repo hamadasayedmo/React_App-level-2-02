@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Header from "../component/header";
 import Footer from "../component/footer";
@@ -8,15 +9,24 @@ import { useContext } from "react";
 import { useState } from "react";
 import ThemeProvider from "../context/ContextData";
 
+// sign in
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firbasee/config";
+
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   // use Context
   const { theme } = useContext(ThemeProvider);
 
-  const [email, setemail] = useState("")
-  const [password, setpassword] = useState("")
+  // sign in
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  // sign in error msg
+  const [hasError, sethasError] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -35,7 +45,7 @@ const SignIn = () => {
               name="email"
               placeholder="Enter Email"
               required
-              onChange={(e)=> {
+              onChange={(e) => {
                 setemail(e.target.value);
               }}
             />
@@ -44,7 +54,7 @@ const SignIn = () => {
               name="password"
               placeholder="Pass Word Pleas"
               required
-              onChange={(e)=> {
+              onChange={(e) => {
                 setpassword(e.target.value);
               }}
             />
@@ -57,17 +67,25 @@ const SignIn = () => {
                 signInWithEmailAndPassword(auth, email, password)
                   .then((userCredential) => {
                     // Signed in
-                    console.log('good');
+                    console.log("good");
                     const user = userCredential.user;
+                    navigate("/");
                     // ...
                   })
                   .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
+
+                    sethasError(true);
                   });
               }}
             />
           </form>
+
+          {hasError && (
+            <p style={{ color: "red" }}>invalid email and password</p>
+          )}
+
           <div className="signin-to-signup">
             <p>
               Don't have an account{" "}

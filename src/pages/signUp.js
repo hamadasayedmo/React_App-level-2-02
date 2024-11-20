@@ -8,9 +8,12 @@ import { useContext } from "react";
 import { useState } from "react";
 import ThemeProvider from "../context/ContextData";
 
+// Create a new account
 import { auth } from "../firbasee/config";
-
 import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
   // use Context
@@ -19,6 +22,8 @@ const SignUp = () => {
   // Sign up
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -67,6 +72,7 @@ const SignUp = () => {
                     // Signed in
                     const user = userCredential.user;
                     console.log("doneeeeeeeeee");
+                    navigate("/");
                     // ...
                   })
                   .catch((error) => {
