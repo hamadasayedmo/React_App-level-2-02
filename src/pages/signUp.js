@@ -10,16 +10,16 @@ import ThemeProvider from "../context/ContextData";
 
 // Create a new account
 import { auth } from "../firbasee/config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
-
 
 const SignUp = () => {
   // use Context
   const { theme } = useContext(ThemeProvider);
 
   // Sign up
+  const [username, setUserName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -37,11 +37,20 @@ const SignUp = () => {
 
         <main className={`myHeader ${theme}`}>
           {true && (
-            <div style={{marginBottom: "10px"}}>
+            <div style={{ marginBottom: "10px" }}>
               Create a new Account <span>🧡</span>
             </div>
           )}
           <form action="" method="">
+            <input
+              type="text"
+              name="username"
+              placeholder="userName"
+              required
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
             <input
               type="email"
               name="email"
@@ -71,12 +80,20 @@ const SignUp = () => {
                   .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-                    console.log("doneeeeeeeeee");
-                    navigate("/");
-                    // ...
+                    updateProfile(auth.currentUser, {
+                      displayName: username,
+                    })
+                      .then(() => {
+                        // Profile updated!
+                        navigate("/");
+                        // ...
+                      })
+                      .catch((error) => {
+                        // An error occurred
+                        console.log(error.code);
+                      });
                   })
                   .catch((error) => {
-                    const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorMessage);
                     // ..

@@ -5,8 +5,7 @@ import Footer from "../component/footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-import { useContext } from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ThemeProvider from "../context/ContextData";
 
 // sign in
@@ -25,6 +24,7 @@ const SignIn = () => {
 
   // sign in error msg
   const [hasError, sethasError] = useState(false);
+  const [firebaseError, setfirebaseError] = useState("");
 
   const navigate = useNavigate();
 
@@ -77,13 +77,37 @@ const SignIn = () => {
                     const errorMessage = error.message;
 
                     sethasError(true);
+
+                    switch (errorCode) {
+                      case "auth/invalid-email":
+                        setfirebaseError("Wrong Email")
+                        break;
+  
+                      case "auth/user-not-found":
+                        setfirebaseError("Wrong Email")
+                        break;
+      
+                      case "auth/wrong-password":
+                        setfirebaseError("Wrong Password")
+                        break;
+    
+                      case "auth/too-many-requests":
+                        setfirebaseError("Too many requests, please try aganin later")
+                        break;
+  
+                      default:
+                        setfirebaseError("Please check your email & password")
+                        break;
+                    }
+
+                    
                   });
               }}
             />
           </form>
 
           {hasError && (
-            <p style={{ color: "red" }}>invalid email and password</p>
+            <p style={{ color: "red" }}>{firebaseError}</p>
           )}
 
           <div className="signin-to-signup">

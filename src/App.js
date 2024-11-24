@@ -11,6 +11,8 @@ import Home from "./pages/home";
 import Html from "./pages/html";
 import Css from "./pages/css";
 import Js from "./pages/javascript";
+import Profile from "./pages/profile";
+
 import SignIn from "./pages/signIn";
 import SignUp from "./pages/signUp";
 
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/javascript",
     element: <Js />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 // End Routing Code

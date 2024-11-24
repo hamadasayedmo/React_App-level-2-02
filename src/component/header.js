@@ -14,7 +14,6 @@ import { signOut } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
 
-
 const Header = () => {
   // use Context
   const { name, theme, changeName, changeThemes } = useContext(ThemeProvider);
@@ -54,7 +53,7 @@ const Header = () => {
                   signOut(auth)
                     .then(() => {
                       // Sign-out successful.
-                      navigate("/")
+                      navigate("/");
                     })
                     .catch((error) => {
                       // An error happened.
@@ -125,6 +124,13 @@ const Header = () => {
                 <a href="">coming soon🔥</a>
               </li>
             </ul> */}
+          </li>
+          <li className="main-list">
+            {user && (
+              <NavLink className="main-link" to="/profile">
+                <i class="fa-solid fa-user"></i>{" "}
+              </NavLink>
+            )}
           </li>
         </ul>
 

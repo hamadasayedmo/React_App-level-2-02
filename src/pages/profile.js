@@ -1,14 +1,17 @@
+import React from "react";
 import Header from "../component/header";
 import Footer from "../component/footer";
-import MainContent from "../component/mainContent";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
+
+// handel date
+import Moment from "react-moment";
 
 import { auth } from "../firbasee/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-function Javascript() {
+const Profile = () => {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -40,16 +43,33 @@ function Javascript() {
     return (
       <>
         <Helmet>
-          <title>Javascript Page</title>
+          <title>Profile</title>
           <link rel="canonical" href="https://www.tacobell.com/" />
         </Helmet>
 
         <Header />
-        <MainContent pageName="JavaScript" />
+
+        {user && (
+          <main>
+            <div>
+              <p>User Name : {user.displayName}</p>
+              <p>Email : {user.email}</p>
+              <p>
+                Created : <Moment fromNow date={user.metadata.creationTime} />
+              </p>
+              <p>
+                Last SignIn Time :{" "}
+                <Moment fromNow date={user.metadata.lastSignInTime} />
+              </p>
+            </div>
+            <button className="action">Delete Account</button>
+          </main>
+        )}
+
         <Footer />
       </>
     );
   }
-}
+};
 
-export default Javascript;
+export default Profile;
