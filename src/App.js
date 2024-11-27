@@ -8,9 +8,8 @@ import ThemeProvider from "./context/ContextData";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/home";
-import Html from "./pages/html";
-import Css from "./pages/css";
-import Js from "./pages/javascript";
+import About from "./pages/about";
+
 import Profile from "./pages/profile";
 
 import SignIn from "./pages/signIn";
@@ -31,16 +30,8 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/html",
-    element: <Html />,
-  },
-  {
-    path: "/css",
-    element: <Css />,
-  },
-  {
-    path: "/javascript",
-    element: <Js />,
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/profile",

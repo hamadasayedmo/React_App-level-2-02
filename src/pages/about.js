@@ -1,14 +1,15 @@
 import Header from "../component/header";
 import Footer from "../component/footer";
 import MainContent from "../component/mainContent";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-
-import { auth } from "../firbasee/config";
+import { Helmet } from "react-helmet-async";
+// Protected page
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { auth } from "../firbasee/config";
 
-function Javascript() {
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+function About() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -40,16 +41,16 @@ function Javascript() {
     return (
       <>
         <Helmet>
-          <title>Javascript Page</title>
+          <title>About Page</title>
           <link rel="canonical" href="https://www.tacobell.com/" />
         </Helmet>
 
         <Header />
-        <MainContent pageName="JavaScript" />
+        <MainContent pageName="About" />
         <Footer />
       </>
     );
   }
-}
+};
 
-export default Javascript;
+export default About;

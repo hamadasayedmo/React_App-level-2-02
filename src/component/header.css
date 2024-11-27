@@ -22,6 +22,14 @@
 }
 
 .light {
-  background-color:#326673;
+  background-color: #326673;
   color: white;
+}
+
+.about-mobile {
+  position: absolute;
+  content: "";
+  top: 89px;
+  right: 101px;
+  font-size: 23px;
 }
